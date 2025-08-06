@@ -1,22 +1,14 @@
 import sys
 input = sys.stdin.readline
 
-def T(n): return n * (n + 1) // 2
+def T(n):
+    return n * (n + 1) // 2
+
+tri_nums = [T(i) for i in range(1, 45)] 
 
 n = int(input())
-num = sum([list(map(int, input().split())) for _ in range(n)], [])
+nums = sum([list(map(int, input().split())) for _ in range(n)], [])
 
-index = 0
-while index != n:
-    for i in range(1, 45):
-        for j in range(1, 45):
-            for k in range(1, 45):
-                if num[index] == T(i) + T(j) + T(k):
-                    print(1)
-                    break
-            else: continue
-            break
-        else: continue
-        break
-    else: print(0)
-    index += 1
+for x in nums:
+    found = any(x == a + b + c for a in tri_nums for b in tri_nums for c in tri_nums)
+    print(1 if found else 0)
