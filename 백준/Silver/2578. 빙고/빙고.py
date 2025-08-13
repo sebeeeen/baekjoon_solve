@@ -7,22 +7,22 @@ rows = len(board)
 cols = len(board[0])
 cnt = 0
 
-def check_bingo(board) :
-    bingo = [0] * 12
-    for i in range(5) :
-        if board[0][i] == 0 : bingo[0] +=1
-        if board[1][i] == 0 : bingo[1] +=1
-        if board[2][i] == 0 : bingo[2] +=1
-        if board[3][i] == 0 : bingo[3] +=1
-        if board[4][i] == 0 : bingo[4] +=1
-        if board[i][0] == 0 : bingo[5] +=1
-        if board[i][1] == 0 : bingo[6] +=1
-        if board[i][2] == 0 : bingo[7] +=1
-        if board[i][3] == 0 : bingo[8] +=1
-        if board[i][4] == 0 : bingo[9] +=1
-        if board[i][4-i] == 0 : bingo[10] +=1
-        if board[i][i] == 0 : bingo[11] +=1
-    return bingo.count(5)
+def check_bingo(board):
+    bingo = 0
+    # 행 검사
+    for r in range(5):
+        if all(board[r][c] == 0 for c in range(5)):
+            bingo += 1
+    # 열 검사
+    for c in range(5):
+        if all(board[r][c] == 0 for r in range(5)):
+            bingo += 1
+    # 대각선 검사
+    if all(board[i][i] == 0 for i in range(5)):
+        bingo += 1
+    if all(board[i][4 - i] == 0 for i in range(5)):
+        bingo += 1
+    return bingo
 
 
 for i in range(5):
