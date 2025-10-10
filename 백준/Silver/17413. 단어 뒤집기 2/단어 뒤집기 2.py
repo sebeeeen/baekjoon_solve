@@ -1,26 +1,16 @@
-import sys
-input = sys.stdin.readline
+import re
 
-s = input()
-output = ""
-print_bool = False
+tokens = [t for t in re.split(r'(<|>|\s)', input()) if t]  # 공백도 토큰화
+word = True  # 외부 단어 뒤집기 여부
 
-for i in range(len(s)) :
-    output +=s[i]
-    if s[i] == ' ' and print_bool==False:
-        for j in range(-2,-len(output)-1,-1) :
-            print(output[j],end="")
-        output = ""
-        if s[i+1] != " ":
-            print(" ",end="")
-    if s[i] =="\n" or s[i]=='<':
-        for j in range(-2,-len(output)-1,-1) :
-            print(output[j],end="")
-    if s[i] == '<':
-        print_bool = True
-    if print_bool == True :
-        print(s[i], end="")
-    if s[i] == '>':
-        print_bool = False
-        output = ""
-    
+for element in tokens:
+    if element == "<":
+        word = False
+        print(element, end='')
+    elif element == ">":
+        word = True
+        print(element, end='')
+    elif element.isspace():
+        print(element, end='')  # 공백은 그대로 출력
+    else:
+        print(element[::-1] if word else element, end='')
